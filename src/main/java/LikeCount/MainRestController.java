@@ -13,14 +13,14 @@ public class MainRestController {
     @Autowired
     TeamRepository teamRepository;
 
-    @GetMapping("/getTeams")
+    @GetMapping("/getTeams") // Returns a JSON array of Team objects or an empty array if no teams exist
     public String getTeams() {
         List<Team> teams = (List<Team>) teamRepository.findAll();
 
         return jsonArrayFromList(teams);
     }
 
-    @GetMapping("/getLikesByTeamId/{id}")
+    @GetMapping("/getLikesByTeamId/{id}") // Returns the amount of likes or -1 if team was not found
     public int getLikesById(@PathVariable Long id) {
         Team team = teamRepository.findById(id).orElse(null);
 
@@ -31,7 +31,7 @@ public class MainRestController {
         return team.getLikes();
     }
 
-    @GetMapping("/getLikesByTeamName/{name}")
+    @GetMapping("/getLikesByTeamName/{name}") // Returns the amount of likes or -1 if team was not found
     public int getLikesByName(@PathVariable String name) {
         Team team = teamRepository.findByNameIgnoreCase(name);
 
@@ -42,7 +42,7 @@ public class MainRestController {
         return team.getLikes();
     }
 
-    @GetMapping("/likeTeamById/{id}")
+    @GetMapping("/likeTeamById/{id}") // Adds one like to team and returns new amount of likes or -1 if team was not found
     public int likeById(@PathVariable Long id) {
         Team team = teamRepository.findById(id).orElse(null);
 
@@ -56,7 +56,7 @@ public class MainRestController {
         return team.getLikes();
     }
 
-    @GetMapping("/likeTeamByName/{name}")
+    @GetMapping("/likeTeamByName/{name}") // Adds one like to team and returns new amount of likes or -1 if team was not found
     public int likeTeamByName(@PathVariable String name) {
         Team team = teamRepository.findByNameIgnoreCase(name);
 
@@ -70,7 +70,7 @@ public class MainRestController {
         return team.getLikes();
     }
 
-    @GetMapping("/createTeam/{name}")
+    @GetMapping("/createTeam/{name}") // Creates a new team with given name
     public Long createTeam(@PathVariable String name) {
         Team newTeam = teamRepository.save(new Team(name, 0));
 
@@ -84,7 +84,7 @@ public class MainRestController {
         jsonString.append("[");
 
         for (Team team : teams) {
-            if (jsonString.length() > 1) {
+            if (jsonString.length() > 1) { // If there is an object before we need to add ,
                 jsonString.append(",");
             }
             jsonString.append(team.toJson());
