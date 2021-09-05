@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -78,6 +77,8 @@ public class MainRestController {
         return newTeam.getId();
     }
 
+    // I'm aware there exists packages that takes care of this problem but in this
+    // case, it was faster for me to just write my own function.
     private String jsonArrayFromList(List<Team> teams) {
         StringBuilder jsonString = new StringBuilder();
         jsonString.append("[");

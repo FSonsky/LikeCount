@@ -48,6 +48,8 @@ public class Team {
         this.likes = likes;
     }
 
+    // I'm aware there exists packages that takes care of this problem but in this
+    // case, it was faster for me to just write my own function.
     public String toJson() {
         return "{\"id\":" + id + ", \"name\":\"" + name + "\", \"likes\":" + likes + "}";
     }
